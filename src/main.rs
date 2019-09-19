@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 fn main() {
     println!("Hello, world!");
 }
@@ -11,7 +13,8 @@ enum Number {
 #[derive(Debug)]
 enum Atom {
     Symbol(String),
-    Number(Number)
+    Number(Number),
+    Func(String)
 }
 
 #[derive(Debug)]
@@ -81,6 +84,16 @@ fn atomise(token: String) -> Exp {
         }
     }
 }
+
+fn get_standard_env() -> HashMap<String, Atom> {
+    let mut env: HashMap<String, Atom> = HashMap::new();
+    env.insert(String::from("pi"), Atom::Number(Number::Float(std::f32::consts::PI)));
+    env.insert(String::from("*"), Atom::Func(String::from("*")));
+
+    env
+}
+
+fn lisp_eval(x: Exp, env: HashMap<String, Atom>) -> Exp {}
 
 #[test]
 fn calculate_circle_area() {
